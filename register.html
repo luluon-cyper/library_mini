@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="css/new_style.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <h2>Đăng ký Tài khoản</h2>
+        
+        <?php
+        if (isset($_GET['error'])) {
+            echo '<p class="error-message" style="display:block; background-color: #fcecec; border-color: #e74c3c; color: #e74c3c;">' . htmlspecialchars($_GET['error']) . '</p>';
+        }
+        ?>
+
+        <form action="php/register.php" method="post">
+            <input type="text" name="username" placeholder="Họ Tên" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Mật khẩu" required>
+            <button type="submit" class="btn">Đăng ký</button>
+        </form>
+
+        <p><a href="login.html">Đăng nhập</a></p>
+    </div>
+</body>
+
+</html>
