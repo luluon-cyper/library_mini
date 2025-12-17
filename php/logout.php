@@ -5,7 +5,7 @@ $_SESSION = [];
 // Hủy session
 session_destroy();
 
-// Chuyển hướng về index.php để index.php tự điều hướng đến login.html
+// Chuyển hướng về index.php để index.php tự điều hướng đến login.php
 header('Location: ../index.php');
 exit;
 ?>

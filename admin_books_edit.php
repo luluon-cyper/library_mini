@@ -12,6 +12,7 @@ if ($id > 0) {
     $stmt = $conn->prepare("SELECT 
         s.IDSach AS id, 
         s.TenSach AS title, 
+        s.SoLuong AS quantity,
         tg.TenTacGia AS author, 
         tl.TenTheLoai AS category, 
         s.TinhTrang AS status 
@@ -58,7 +59,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin_users.php">Quản lý tài khoản</a>
     </nav>
     <div>
-        <span>Xin chào, **<?= $admin_username ?>**</span>
+        <span>Xin chào, <?= $admin_username ?>!</span>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
@@ -79,11 +80,11 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <label for="category">Thể loại</label>
         <input type="text" id="category" name="category" value="<?= htmlspecialchars($book['category'] ?? '') ?>" required>
 
-        <label for="status">Trạng thái</label>
-        <select id="status" name="status" required>
-            <option value="available" <?= $book['status'] === 'available' ? 'selected' : '' ?>>Có sẵn</option>
-            <option value="borrowed" <?= $book['status'] === 'borrowed' ? 'selected' : '' ?>>Đã mượn</option>
-        </select>
+        <label for="quantity">Số lượng</label>
+        <input type="number" id="quantity" name="quantity" min="0" value="<?= (int)$book['quantity'] ?>" required>
+        <p style="margin:6px 0 14px; color:#6b7280; font-size:13px;">
+            Nhập 0 sẽ hiển thị trạng thái "Hết sách", lớn hơn 0 sẽ hiển thị "Có sẵn".
+        </p>
         
         <button type="submit" class="btn">Lưu Thay Đổi</button>
     </form>

@@ -32,9 +32,10 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin.php" class="active">Tổng quan</a>
         <a href="admin_books.php">Quản lý sách</a>
         <a href="admin_users.php">Quản lý tài khoản</a>
+        <a href="admin_loans.php">Phiếu mượn</a>
     </nav>
     <div>
-        <span>Xin chào, **<?= $admin_username ?>**</span>
+        <span>Xin chào, <?= $admin_username ?>!</span>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
@@ -68,10 +69,6 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         </div>
     </div>
     
-    <div class="management-links">
-        <a href="admin_books.php" class="btn large-link">Quản lý Sách</a>
-        <a href="admin_users.php" class="btn large-link">Quản lý Tài khoản</a>
-    </div>
 </main>
 
 </body>

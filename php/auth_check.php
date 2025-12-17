@@ -2,7 +2,7 @@
 session_start();
 // Kiểm tra IDTaiKhoan
 if(!isset($_SESSION['user_id'])){ // Vẫn dùng 'user_id' vì được set trong login.php
-    header('Location: ../login.html?error=' . urlencode('Vui lòng đăng nhập để tiếp tục.'));
+    header('Location: ../login.php?error=' . urlencode('Vui lòng đăng nhập để tiếp tục.'));
     exit;
 }
 // Kiểm tra VaiTro

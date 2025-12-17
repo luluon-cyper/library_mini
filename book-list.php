@@ -17,7 +17,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
 <body>
 
 <header class="app-header user-header">
-  <h1 class="logo">📚 Thư viện Mini</h1>
+  <h1 class="logo"><a class="logo-link" href="book-list.php">📚 Thư viện Mini</a></h1>
   
   <div class="search-bar-header">
     <input type="text" id="searchInput" placeholder="Tìm kiếm sách theo tên..." />
@@ -26,6 +26,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
 
   <div>
     <span>Xin chào, <strong><?= $username ?></strong>!</span>
+    <a class="logout-link" href="user_loans.php" style="margin-left:12px;">Phiếu mượn</a>
     <a class="logout-link" href="php/logout.php">Đăng xuất</a>
   </div>
 </header>

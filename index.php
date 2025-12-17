@@ -10,7 +10,7 @@ if(isset($_SESSION['user_id'])){
     }
 } else {
     // Chưa đăng nhập, chuyển hướng đến trang đăng nhập
-    header('Location: login.html');
+    header('Location: login.php');
 }
 exit;
 ?>

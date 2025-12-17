@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="css/new_style.css">
 </head>
 
-<body>
+<body class="auth-page">
     <div class="auth-container">
         <h2>Đăng ký Tài khoản</h2>
         
         <?php
         if (isset($_GET['error'])) {
-            echo '<p class="error-message" style="display:block; background-color: #fcecec; border-color: #e74c3c; color: #e74c3c;">' . htmlspecialchars($_GET['error']) . '</p>';
+            echo '<p class="alert error">' . htmlspecialchars($_GET['error']) . '</p>';
         }
         ?>
 
@@ -22,10 +22,10 @@
             <input type="text" name="username" placeholder="Họ Tên" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Mật khẩu" required>
-            <button type="submit" class="btn">Đăng ký</button>
+            <button type="submit" class="btn primary">Đăng ký</button>
         </form>
 
-        <p><a href="login.html">Đăng nhập</a></p>
+        <p><a href="login.php">Đăng nhập</a></p>
     </div>
 </body>
 

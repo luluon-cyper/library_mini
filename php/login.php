@@ -50,7 +50,7 @@ if(!$redirect_to_error) {
 
 if($redirect_to_error){
     $encoded_error = urlencode($error_message);
-    header("Location: ../login.html?error={$encoded_error}");
+    header("Location: ../login.php?error={$encoded_error}");
     exit;
 }
 

@@ -10,6 +10,7 @@ $query = "SELECT
     s.TenSach AS title, 
     tg.TenTacGia AS author, 
     tl.TenTheLoai AS category, 
+    s.SoLuong AS quantity,
     s.TinhTrang AS status 
 FROM sach s
 LEFT JOIN tacgia tg ON s.IDTacGia = tg.IDTacGia
@@ -41,9 +42,10 @@ $conn->close();
         <a href="admin.php">Tổng quan</a>
         <a href="admin_books.php" class="active">Quản lý sách</a>
         <a href="admin_users.php">Quản lý tài khoản</a>
+        <a href="admin_loans.php">Phiếu mượn</a>
     </nav>
     <div>
-        <span>Xin chào, **<?= $admin_username ?>**</span>
+        <span>Xin chào, <?= $admin_username ?>!</span>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
@@ -53,20 +55,33 @@ $conn->close();
 
     <div class="add-form">
         <h3>Thêm Sách Mới</h3>
-        <form action="php/admin_books_action.php" method="post">
+        <form action="php/admin_books_action.php" method="post" class="form-grid">
             <input type="hidden" name="action" value="add">
-            <div class="form-row">
-                <input type="text" name="title" placeholder="Tên sách" required>
-                <input type="text" name="author" placeholder="Tác giả" required>
+            
+            <div class="form-field">
+                <label>Tên sách</label>
+                <input type="text" name="title" placeholder="Ví dụ: Nhà giả kim" required>
             </div>
-            <div class="form-row">
-                <input type="text" name="category" placeholder="Thể loại" required>
-                <select name="status" required>
-                    <option value="available">Có sẵn</option>
-                    <option value="borrowed">Đã mượn</option>
-                </select>
+            
+            <div class="form-field">
+                <label>Tác giả</label>
+                <input type="text" name="author" placeholder="Ví dụ: Paulo Coelho" required>
             </div>
-            <button type="submit" class="btn">Thêm Sách</button>
+
+            <div class="form-field">
+                <label>Thể loại</label>
+                <input type="text" name="category" placeholder="Ví dụ: Văn học" required>
+            </div>
+
+            <div class="form-field">
+                <label>Số lượng</label>
+                <input type="number" name="quantity" placeholder="0" min="0" value="1" required>
+                <small class="hint">0 sẽ hiển thị “Hết sách”, lớn hơn 0 hiển thị “Có sẵn”.</small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Thêm Sách</button>
+            </div>
         </form>
     </div>
 
@@ -78,6 +93,7 @@ $conn->close();
                 <th>Tên Sách</th>
                 <th>Tác giả</th>
                 <th>Thể loại</th>
+                <th>Số lượng</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
@@ -94,9 +110,15 @@ $conn->close();
                         <td><?= htmlspecialchars($book['title']) ?></td>
                         <td><?= htmlspecialchars($book['author'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($book['category'] ?? 'N/A') ?></td>
+                        <td><?= (int)$book['quantity'] ?></td>
                         <td>
-                            <span class="book-status <?= $book['status'] ?>">
-                                <?= $book['status'] === 'available' ? 'Có sẵn' : 'Đã mượn' ?>
+                            <?php
+                                $qty = (int)$book['quantity'];
+                                $statusLabel = $qty > 0 ? 'Có sẵn' : 'Hết sách';
+                                $statusClass = $qty > 0 ? 'available' : 'borrowed';
+                            ?>
+                            <span class="book-status <?= $statusClass ?>">
+                                <?= $statusLabel ?>
                             </span>
                         </td>
                         <td>

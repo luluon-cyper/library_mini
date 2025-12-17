@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/new_style.css">
 </head>
 
-<body>
+<body class="auth-page">
     <div class="auth-container">
         <h2>Đăng nhập Hệ thống</h2>
         
@@ -16,20 +16,20 @@
         // Hiển thị thông báo lỗi hoặc thành công từ các trang khác
         // Cần chạy file này qua PHP Server để code nhúng hoạt động
         if (isset($_GET['error'])) {
-            echo '<p class="error-message" style="display:block; background-color: #fcecec; border-color: #e74c3c; color: #e74c3c;">' . htmlspecialchars($_GET['error']) . '</p>';
+            echo '<p class="alert error">' . htmlspecialchars($_GET['error']) . '</p>';
         }
         if (isset($_GET['success'])) {
-            echo '<p class="error-message" style="display:block; background-color: #ecfcf1; border-color: #2ecc71; color: #2ecc71;">' . htmlspecialchars($_GET['success']) . '</p>';
+            echo '<p class="alert success">' . htmlspecialchars($_GET['success']) . '</p>';
         }
         ?>
 
         <form action="php/login.php" method="post">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Mật khẩu" required>
-            <button type="submit" class="btn">Đăng nhập</button>
+            <button type="submit" class="btn primary">Đăng nhập</button>
         </form>
 
-        <p><a href="register.html">Đăng ký tài khoản mới</a></p>
+        <p><a href="register.php">Đăng ký tài khoản mới</a></p>
         <p><a href="forget.html">Quên mật khẩu?</a></p>
     </div>
 </body>

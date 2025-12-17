@@ -1,0 +1,8 @@
+DirectoryIndex index.php
+
+# Redirect old HTML routes to new PHP endpoints
+RewriteEngine On
+RewriteBase /library_sprint1/
+RewriteRule ^login\.html$ login.php [R=301,L]
+RewriteRule ^register\.html$ register.php [R=301,L]
+

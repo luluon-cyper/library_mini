@@ -40,9 +40,10 @@ $conn->close();
         <a href="admin.php">Tổng quan</a>
         <a href="admin_books.php">Quản lý sách</a>
         <a href="admin_users.php" class="active">Quản lý tài khoản</a>
+        <a href="admin_loans.php">Phiếu mượn</a>
     </nav>
     <div>
-        <span>Xin chào, **<?= $admin_username ?>**</span>
+        <span>Xin chào, <?= $admin_username ?>!</span>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>

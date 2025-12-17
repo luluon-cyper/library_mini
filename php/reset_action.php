@@ -30,7 +30,7 @@ if (empty($token) || empty($new_password) || empty($confirm_password)) {
         
         if ($stmt_update->execute()) {
             // Thành công: Chuyển hướng về trang đăng nhập với thông báo thành công
-            header('Location: ../login.html?success=Mật khẩu của bạn đã được cập nhật. Vui lòng đăng nhập.');
+            header('Location: ../login.php?success=Mật khẩu của bạn đã được cập nhật. Vui lòng đăng nhập.');
             exit;
         } else {
             $error_message = 'Lỗi hệ thống khi cập nhật mật khẩu.';
