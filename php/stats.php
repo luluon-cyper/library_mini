@@ -4,9 +4,17 @@ require 'config.php';
 $conn = getConn();
 
 // Thống kê sách
-$total_books     = (int)$conn->query("SELECT COUNT(*) FROM sach")->fetch_row()[0];
-$available_books = (int)$conn->query("SELECT COUNT(*) FROM sach WHERE TinhTrang='available'")->fetch_row()[0];
-$borrowed_books  = (int)$conn->query("SELECT COUNT(*) FROM sach WHERE TinhTrang='borrowed'")->fetch_row()[0];
+// Bản sách đang mượn dựa trên phiếu chưa trả (dangmuon)
+$borrowed_books  = (int)$conn->query("
+    SELECT COALESCE(SUM(ct.SoLuong),0)
+    FROM phieumuon pm
+    JOIN ct_phieumuon ct ON pm.IDPhieuMuon = ct.IDPhieuMuon
+    WHERE pm.TrangThaiMuonTra = 'dangmuon'
+")->fetch_row()[0];
+// Bản sách còn trong kho
+$available_books = (int)$conn->query("SELECT COALESCE(SUM(SoLuong),0) FROM sach")->fetch_row()[0];
+// Tổng bản sách = còn kho + đang mượn
+$total_copies = $available_books + $borrowed_books;
 
 // Thống kê mượn trả
 $loan_total   = (int)$conn->query("SELECT COUNT(*) FROM phieumuon")->fetch_row()[0];
@@ -38,7 +46,7 @@ $conn->close();
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'books' => [
-        'total' => $total_books,
+        'total' => $total_copies,
         'available' => $available_books,
         'borrowed' => $borrowed_books,
     ],

@@ -28,15 +28,14 @@ require 'php/admin_check.php';
     <h2>Quản lý Phiếu mượn</h2>
 
     <div class="add-form">
-        <h3>Tạo phiếu mượn (Admin)</h3>
+        <h3>Tạo phiếu mượn</h3>
         <form action="php/loans_create.php" method="post" class="form-grid">
             <div class="form-field">
                 <label>ID Tài khoản người mượn</label>
                 <input type="number" name="user_id" min="1" placeholder="Ví dụ: 5" required>
-                <small class="hint">Chỉ admin tạo. Dùng ID tài khoản user.</small>
             </div>
             <div class="form-field" style="grid-column: 1 / -1;">
-                <label>Danh sách sách (mỗi dòng: book_id,qty)</label>
+                <label>Danh sách sách </label>
                 <textarea name="items" rows="4" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;" placeholder="1,1&#10;3,2" required></textarea>
                 <small class="hint">Mỗi dòng: IDSach, số lượng. Sẽ trừ tồn kho khi tạo.</small>
             </div>

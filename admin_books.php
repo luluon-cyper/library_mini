@@ -83,7 +83,6 @@ $conn->close();
             <div class="form-field">
                 <label>Số lượng</label>
                 <input type="number" name="quantity" placeholder="0" min="0" value="1" required>
-                <small class="hint">0 sẽ hiển thị “Hết sách”, lớn hơn 0 hiển thị “Có sẵn”.</small>
             </div>
 
             <div class="form-actions">

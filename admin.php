@@ -5,9 +5,17 @@ require 'php/config.php';
 $conn = getConn();
 
 // Lấy số liệu thống kê
-$total_books = $conn->query("SELECT COUNT(IDSach) FROM sach")->fetch_row()[0];
-$available_books = $conn->query("SELECT COUNT(IDSach) FROM sach WHERE TinhTrang='available'")->fetch_row()[0];
-$borrowed_books = $conn->query("SELECT COUNT(IDSach) FROM sach WHERE TinhTrang='borrowed'")->fetch_row()[0];
+// Bản sách đang mượn theo phiếu chưa trả (TrangThaiMuonTra = 'dangmuon')
+$borrowed_books = (int)$conn->query("
+    SELECT COALESCE(SUM(ct.SoLuong),0)
+    FROM phieumuon pm
+    JOIN ct_phieumuon ct ON pm.IDPhieuMuon = ct.IDPhieuMuon
+    WHERE pm.TrangThaiMuonTra = 'dangmuon'
+")->fetch_row()[0];
+// Bản sách còn trong kho (SoLuong hiện tại của bảng sach)
+$available_books = (int)$conn->query("SELECT COALESCE(SUM(SoLuong),0) FROM sach")->fetch_row()[0];
+// Tổng số bản sách = còn kho + đang mượn
+$total_copies = $available_books + $borrowed_books;
 $total_users = $conn->query("SELECT COUNT(IDTaiKhoan) FROM taikhoan WHERE VaiTro='user'")->fetch_row()[0];
 
 $conn->close();
@@ -43,22 +51,21 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 
 <main class="admin-section">
     <h2>Chào mừng, Admin Quản lý</h2>
-    <p>Sử dụng menu bên trên để truy cập các chức năng quản lý.</p>
 
     <div class="dashboard-summary">
         <div class="summary-card total-books">
-            <h3>Tổng số sách</h3>
-            <div class="count"><?= $total_books ?></div>
-            <p class="detail">Tổng sách hiện có trong thư viện</p>
+            <h3>Tổng số bản sách</h3>
+            <div class="count"><?= $total_copies ?></div>
+            <p class="detail">Tổng số bản sách trong kho</p>
             <a href="admin_books.php">Xem danh sách sách</a>
         </div>
         <div class="summary-card available-books">
             <h3>Sách Có sẵn</h3>
             <div class="count"><?= $available_books ?></div>
-            <p class="detail">Số lượng sách đang cho mượn</p>
+            <p class="detail">Số bản sách đang có sẵn</p>
         </div>
         <div class="summary-card borrowed-books">
-            <h3>Sách Đã mượn</h3>
+            <h3>Sách đang mượn</h3>
             <div class="count"><?= $borrowed_books ?></div>
             <p class="detail">Số lượng sách đang được độc giả mượn</p>
         </div>

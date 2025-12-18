@@ -62,9 +62,10 @@ foreach($details as $d){
     $stmt->close();
 }
 
-// Cập nhật trạng thái phiếu
-$stmt = $conn->prepare("UPDATE phieumuon SET TrangThaiMuonTra='datra' WHERE IDPhieuMuon=?");
-$stmt->bind_param('i', $loan_id);
+// Cập nhật trạng thái phiếu (quahan nếu trả trễ, ngược lại datra)
+$newStatus = $overDays > 0 ? 'quahan' : 'datra';
+$stmt = $conn->prepare("UPDATE phieumuon SET TrangThaiMuonTra=? WHERE IDPhieuMuon=?");
+$stmt->bind_param('si', $newStatus, $loan_id);
 if(!$stmt->execute()) fail('Lỗi cập nhật phiếu.');
 $stmt->close();
 

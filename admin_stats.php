@@ -29,19 +29,19 @@ require 'php/admin_check.php';
 
     <div class="dashboard-summary" id="statsSummary">
         <div class="summary-card total-books">
-            <h3>Tổng sách</h3>
+            <h3>Tổng số bản sách</h3>
             <div class="count" id="bkTotal">...</div>
-            <p class="detail">Tất cả đầu sách</p>
+            <p class="detail">Tổng số bản sách (kể cả đang mượn)</p>
         </div>
         <div class="summary-card available-books">
             <h3>Có sẵn</h3>
             <div class="count" id="bkAvail">...</div>
-            <p class="detail">Đang còn kho</p>
+            <p class="detail">Số bản đang còn kho</p>
         </div>
         <div class="summary-card borrowed-books">
             <h3>Đang mượn</h3>
             <div class="count" id="bkBorrow">...</div>
-            <p class="detail">Hiện đang cho mượn</p>
+            <p class="detail">Số bản đang cho mượn</p>
         </div>
         <div class="summary-card total-users">
             <h3>Phiếu đang mở</h3>

@@ -58,6 +58,7 @@ function fetch_items($conn, $loan_ids){
 
 $loans = fetch_loans($conn, $is_admin, $user_id);
 $items = fetch_items($conn, array_column($loans, 'id'));
+$conn->close();
 
 header('Content-Type: application/json');
 echo json_encode([
