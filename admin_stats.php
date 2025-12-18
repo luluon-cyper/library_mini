@@ -33,7 +33,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <div class="summary-card total-books">
             <h3>Tổng số bản sách</h3>
             <div class="count" id="bkTotal">...</div>
-            <p class="detail">Tổng số bản sách (kể cả đang mượn)</p>
+            <p class="detail">Tổng số bản sách</p>
         </div>
         <div class="summary-card available-books">
             <h3>Có sẵn</h3>

@@ -39,7 +39,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
             <div class="form-field" style="grid-column: 1 / -1;">
                 <label>Danh sách sách </label>
                 <textarea name="items" rows="4" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:10px;" placeholder="1,1&#10;3,2" required></textarea>
-                <small class="hint">Mỗi dòng: IDSach, số lượng. Sẽ trừ tồn kho khi tạo.</small>
+                <small class="hint">Mỗi dòng: IDSach, số lượng.</small>
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn primary">Tạo phiếu</button>

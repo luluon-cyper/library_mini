@@ -56,7 +56,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <div class="summary-card total-books">
             <h3>Tổng số bản sách</h3>
             <div class="count"><?= $total_copies ?></div>
-            <p class="detail">Tổng số bản sách trong kho</p>
+            <p class="detail">Tổng số bản sách</p>
             <a href="admin_books.php">Xem danh sách sách</a>
         </div>
         <div class="summary-card available-books">
