@@ -43,6 +43,7 @@ $conn->close();
         <a href="admin_books.php" class="active">Quản lý sách</a>
         <a href="admin_users.php">Quản lý tài khoản</a>
         <a href="admin_loans.php">Phiếu mượn</a>
+        <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
         <span>Xin chào, <?= $admin_username ?>!</span>
@@ -71,6 +72,12 @@ $conn->close();
             <div class="form-field">
                 <label>Thể loại</label>
                 <input type="text" name="category" placeholder="Ví dụ: Văn học" required>
+            </div>
+
+            <div class="form-field">
+                <label>Ảnh (URL)</label>
+                <input type="url" name="image" placeholder="https://example.com/image.jpg">
+                <small class="hint">Để trống sẽ dùng ảnh mặc định.</small>
             </div>
 
             <div class="form-field">

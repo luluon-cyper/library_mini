@@ -41,6 +41,7 @@ $conn->close();
         <a href="admin_books.php">Quản lý sách</a>
         <a href="admin_users.php" class="active">Quản lý tài khoản</a>
         <a href="admin_loans.php">Phiếu mượn</a>
+        <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
         <span>Xin chào, <?= $admin_username ?>!</span>

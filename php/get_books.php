@@ -9,6 +9,7 @@ $keyword = trim($_GET['keyword'] ?? '');
 $base_query = "SELECT 
     s.IDSach AS id, 
     s.TenSach AS title, 
+    s.Anh AS image,
     tg.TenTacGia AS author, 
     tl.TenTheLoai AS category, 
     s.TinhTrang AS status 
@@ -27,6 +28,12 @@ if($keyword === ''){
 $stmt->execute();
 $res = $stmt->get_result();
 $books = [];
-while($r = $res->fetch_assoc()) $books[] = $r;
+$fallback_img = 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
+while($r = $res->fetch_assoc()) {
+    if(!isset($r['image']) || !$r['image']){
+        $r['image'] = $fallback_img;
+    }
+    $books[] = $r;
+}
 echo json_encode($books, JSON_UNESCAPED_UNICODE);
 ?>

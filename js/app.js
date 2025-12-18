@@ -17,16 +17,22 @@ function renderBooks(books) {
     // b.status nhận giá trị 'available' hoặc 'borrowed' từ PHP/SQL (cột TinhTrang)
     const statusClass = b.status === 'available' ? 'available' : 'borrowed';
     const statusText = b.status === 'available' ? 'Có sẵn' : 'Đã mượn';
+    const image = b.image || 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
 
     // b.title, b.author, b.category nhận từ bí danh AS trong SQL
     return `
       <div class="book-card">
-        <h3>${escapeHtml(b.title)}</h3>
-        <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
-        <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
-        <p>Trạng thái: 
-          <span class="book-status ${statusClass}">${statusText}</span>
-        </p>
+        <div class="book-thumb">
+          <img src="${image}" alt="${escapeHtml(b.title)}" loading="lazy">
+        </div>
+        <div class="book-info">
+          <h3>${escapeHtml(b.title)}</h3>
+          <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
+          <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
+          <p>Trạng thái: 
+            <span class="book-status ${statusClass}">${statusText}</span>
+          </p>
+        </div>
       </div>
     `;
   }).join('');

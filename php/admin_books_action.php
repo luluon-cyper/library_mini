@@ -37,6 +37,7 @@ if ($action === 'add') {
     $title = $_POST['title'] ?? ''; 
     $author_name = $_POST['author'] ?? ''; 
     $category_name = $_POST['category'] ?? ''; 
+    $image = trim($_POST['image'] ?? '');
     $quantity = max(0, intval($_POST['quantity'] ?? 0));
     $status = $quantity > 0 ? 'available' : 'borrowed'; 
     
@@ -44,9 +45,9 @@ if ($action === 'add') {
     $id_tacgia = getOrCreateID($conn, 'tacgia', 'TenTacGia', $author_name, 'IDTacGia');
     $id_theloai = getOrCreateID($conn, 'theloai', 'TenTheLoai', $category_name, 'IDTheLoai');
     
-    // INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, SoLuong, TinhTrang)
-    $stmt = $conn->prepare('INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, SoLuong, TinhTrang) VALUES (?, ?, ?, ?, ?)'); 
-    $stmt->bind_param('siiis', $title, $id_tacgia, $id_theloai, $quantity, $status); 
+    // INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, Anh, SoLuong, TinhTrang)
+    $stmt = $conn->prepare('INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, Anh, SoLuong, TinhTrang) VALUES (?, ?, ?, ?, ?, ?)'); 
+    $stmt->bind_param('siisis', $title, $id_tacgia, $id_theloai, $image, $quantity, $status); 
     $stmt->execute();
     header('Location: ../admin_books.php');
     exit;
@@ -67,6 +68,7 @@ if ($action === 'edit') {
     $title = $_POST['title'] ?? ''; 
     $author_name = $_POST['author'] ?? ''; 
     $category_name = $_POST['category'] ?? ''; 
+    $image = trim($_POST['image'] ?? '');
     $quantity = max(0, intval($_POST['quantity'] ?? 0));
     $status = $quantity > 0 ? 'available' : 'borrowed'; 
 
@@ -74,9 +76,9 @@ if ($action === 'edit') {
     $id_tacgia = getOrCreateID($conn, 'tacgia', 'TenTacGia', $author_name, 'IDTacGia');
     $id_theloai = getOrCreateID($conn, 'theloai', 'TenTheLoai', $category_name, 'IDTheLoai');
 
-    // UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?
-    $stmt = $conn->prepare('UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?');
-    $stmt->bind_param('siiisi', $title, $id_tacgia, $id_theloai, $quantity, $status, $id); 
+    // UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, Anh=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?
+    $stmt = $conn->prepare('UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, Anh=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?');
+    $stmt->bind_param('siisisi', $title, $id_tacgia, $id_theloai, $image, $quantity, $status, $id); 
     $stmt->execute();
     header('Location: ../admin_books.php');
     exit;

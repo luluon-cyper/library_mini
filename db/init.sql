@@ -43,6 +43,7 @@ CREATE TABLE sach (
   IDSach INT AUTO_INCREMENT PRIMARY KEY,
   IDTacGia INT,
   IDTheLoai INT,
+  Anh VARCHAR(255),
   TenSach VARCHAR(255) NOT NULL,
   SoLuong INT DEFAULT 0,
   TinhTrang ENUM('available','borrowed') DEFAULT 'available',

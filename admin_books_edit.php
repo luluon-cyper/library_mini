@@ -12,6 +12,7 @@ if ($id > 0) {
     $stmt = $conn->prepare("SELECT 
         s.IDSach AS id, 
         s.TenSach AS title, 
+        s.Anh AS image,
         s.SoLuong AS quantity,
         tg.TenTacGia AS author, 
         tl.TenTheLoai AS category, 
@@ -57,6 +58,8 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin.php">Tổng quan</a>
         <a href="admin_books.php" class="active">Quản lý sách</a>
         <a href="admin_users.php">Quản lý tài khoản</a>
+        <a href="admin_loans.php">Phiếu mượn</a>
+        <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
         <span>Xin chào, <?= $admin_username ?>!</span>
@@ -79,6 +82,12 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 
         <label for="category">Thể loại</label>
         <input type="text" id="category" name="category" value="<?= htmlspecialchars($book['category'] ?? '') ?>" required>
+
+        <label for="image">Ảnh (URL)</label>
+        <input type="url" id="image" name="image" value="<?= htmlspecialchars($book['image'] ?? '') ?>" placeholder="https://example.com/image.jpg">
+        <p style="margin:6px 0 14px; color:#6b7280; font-size:13px;">
+            Để trống sẽ dùng ảnh mặc định.
+        </p>
 
         <label for="quantity">Số lượng</label>
         <input type="number" id="quantity" name="quantity" min="0" value="<?= (int)$book['quantity'] ?>" required>

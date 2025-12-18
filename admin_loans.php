@@ -17,6 +17,7 @@ require 'php/admin_check.php';
         <a href="admin_books.php">Quản lý sách</a>
         <a href="admin_users.php">Quản lý tài khoản</a>
         <a href="admin_loans.php" class="active">Phiếu mượn</a>
+        <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>

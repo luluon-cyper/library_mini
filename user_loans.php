@@ -12,7 +12,8 @@ require 'php/auth_check.php';
 <body>
 <header class="app-header user-header">
     <h1 class="logo"><a class="logo-link" href="book-list.php">📚 Thư viện Mini</a></h1>
-    <div>
+    <div class="user-actions">
+        <a class="logout-link" href="book-list.php">trang chủ</a>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
