@@ -30,7 +30,7 @@
         </form>
 
         <p><a href="register.php">Đăng ký tài khoản mới</a></p>
-        <p><a href="forget.html">Quên mật khẩu?</a></p>
+        <p><a href="forget.php">Quên mật khẩu?</a></p>
     </div>
 </body>
 
