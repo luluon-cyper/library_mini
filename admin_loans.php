@@ -47,6 +47,13 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         </form>
     </div>
 
+    <div class="add-form" style="max-width: 760px; margin-top:12px;">
+        <div class="form-grid" style="grid-template-columns: 1fr auto;">
+            <input type="text" id="searchBorrower" placeholder="Tìm kiếm theo tên người mượn...">
+            <button class="btn primary" id="searchBorrowerBtn" style="width:auto; min-width:120px;">Tìm</button>
+        </div>
+    </div>
+
     <h3>Danh sách Phiếu mượn</h3>
     <div class="card-table">
         <table class="admin-table" id="loanTable">
@@ -67,8 +74,8 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 </main>
 
 <script>
-async function loadLoans(){
-    const res = await fetch('php/loans_list.php');
+async function loadLoans(keyword=''){
+    const res = await fetch('php/loans_list.php?keyword=' + encodeURIComponent(keyword));
     const data = await res.json();
     const tbody = document.querySelector('#loanTable tbody');
     tbody.innerHTML = '';
@@ -98,7 +105,20 @@ async function loadLoans(){
         tbody.appendChild(tr);
     });
 }
-document.addEventListener('DOMContentLoaded', loadLoans);
+document.addEventListener('DOMContentLoaded', () => {
+    loadLoans();
+    const btn = document.getElementById('searchBorrowerBtn');
+    const inp = document.getElementById('searchBorrower');
+    if(btn && inp){
+        btn.addEventListener('click', () => loadLoans(inp.value.trim()));
+        inp.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter'){
+                e.preventDefault();
+                loadLoans(inp.value.trim());
+            }
+        });
+    }
+});
 </script>
 </body>
 </html>

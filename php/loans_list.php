@@ -5,8 +5,9 @@ $conn = getConn();
 
 $is_admin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $user_id = intval($_SESSION['user_id'] ?? 0);
+$keyword = trim($_GET['keyword'] ?? '');
 
-function fetch_loans($conn, $is_admin, $user_id) {
+function fetch_loans($conn, $is_admin, $user_id, $keyword) {
     $base = "SELECT 
         pm.IDPhieuMuon AS id,
         pm.IDTaiKhoan AS user_id,
@@ -18,8 +19,15 @@ function fetch_loans($conn, $is_admin, $user_id) {
     LEFT JOIN taikhoan tk ON pm.IDTaiKhoan = tk.IDTaiKhoan ";
 
     if($is_admin){
-        $base .= "ORDER BY pm.IDPhieuMuon DESC";
-        $stmt = $conn->prepare($base);
+        if($keyword !== ''){
+            $base .= "WHERE tk.HoTen LIKE ? ORDER BY pm.IDPhieuMuon DESC";
+            $stmt = $conn->prepare($base);
+            $like = '%'.$keyword.'%';
+            $stmt->bind_param('s', $like);
+        } else {
+            $base .= "ORDER BY pm.IDPhieuMuon DESC";
+            $stmt = $conn->prepare($base);
+        }
     } else {
         $base .= "WHERE pm.IDTaiKhoan = ? ORDER BY pm.IDPhieuMuon DESC";
         $stmt = $conn->prepare($base);
@@ -56,7 +64,7 @@ function fetch_items($conn, $loan_ids){
     return $items;
 }
 
-$loans = fetch_loans($conn, $is_admin, $user_id);
+$loans = fetch_loans($conn, $is_admin, $user_id, $keyword);
 $items = fetch_items($conn, array_column($loans, 'id'));
 $conn->close();
 
