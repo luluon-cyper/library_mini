@@ -25,7 +25,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
   </div>
 
   <div class="user-actions">
-    <span>Xin chào, <strong><?= $username ?></strong>!</span>
+    <a class="logout-link" href="profile.php">Xin chào, <strong><?= $username ?></strong></a>
     <a class="logout-link" href="user_loans.php">Phiếu mượn</a>
     <a class="logout-link" href="php/logout.php">Đăng xuất</a>
   </div>

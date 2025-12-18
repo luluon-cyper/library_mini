@@ -46,8 +46,8 @@ $conn->close();
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
-        <span>Xin chào, <?= $admin_username ?>!</span>
-        <a class="logout-link" href="php/logout.php">Đăng xuất</a>
+        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
+        <a class="logout-link" href="php/logout.php" style="margin-left:12px;">Đăng xuất</a>
     </div>
 </header>
 

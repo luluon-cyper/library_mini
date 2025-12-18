@@ -1,5 +1,6 @@
 <?php
 require 'php/admin_check.php';
+$admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 ?>
 <!doctype html>
 <html lang="vi">
@@ -20,7 +21,8 @@ require 'php/admin_check.php';
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div>
-        <a class="logout-link" href="php/logout.php">Đăng xuất</a>
+        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
+        <a class="logout-link" href="php/logout.php" style="margin-left:12px;">Đăng xuất</a>
     </div>
 </header>
 
