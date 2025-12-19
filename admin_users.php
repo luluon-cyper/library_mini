@@ -43,9 +43,10 @@ $conn->close();
         <a href="admin_loans.php">Phiếu mượn</a>
         <a href="admin_stats.php">Thống kê</a>
     </nav>
-    <div>
-        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
-        <a class="logout-link" href="php/logout.php" style="margin-left:12px;">Đăng xuất</a>
+    <div class="user-actions">
+        <a class="greet-link">Xin chào, <?= $admin_username ?>!</a>
+        <a class="greet-link" href="admin_profile.php">Thông tin tài khoản</a>
+        <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
 
