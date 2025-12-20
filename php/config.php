@@ -4,10 +4,11 @@ define('DB_HOST','localhost');
 define('DB_USER','root');    // << THAY ĐỔI USERNAME DATABASE
 define('DB_PASS','');        // << THAY ĐỔI PASSWORD DATABASE
 define('DB_NAME','library_db'); // << PHẢI KHỚP VỚI init.sql
+define('DB_PORT',3306);
 
 function getConn(){
     // Tạo kết nối mới
-    $mysqli = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $mysqli = @new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
     // Xử lý lỗi kết nối
     if($mysqli->connect_errno){
