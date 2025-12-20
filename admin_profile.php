@@ -28,7 +28,7 @@ $msg_error = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Thông tin tài khoản (Admin)</title>
-    <link rel="stylesheet" href="css/new_style.css?v=1"/>
+    <link rel="stylesheet" href="css/style.css?v=1"/>
 </head>
 <body class="auth-page">
     <div class="auth-container">

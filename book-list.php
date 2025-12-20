@@ -11,7 +11,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Thư viện Sách</title>
-  <link rel="stylesheet" href="css/new_style.css?v=1"/>
+  <link rel="stylesheet" href="css/style.css?v=1"/>
 </head>
 
 <body>
@@ -25,7 +25,8 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
   </div>
 
   <div class="user-actions">
-    <a class="logout-link" href="profile.php">Xin chào, <strong><?= $username ?></strong></a>
+    <a class="logout-link"">Xin chào, <strong><?= $username ?>!</strong></a>
+    <a class="logout-link" href="profile.php">Thông tin tài khoản</strong></a>
     <a class="logout-link" href="user_loans.php">Phiếu mượn</a>
     <a class="logout-link" href="php/logout.php">Đăng xuất</a>
   </div>

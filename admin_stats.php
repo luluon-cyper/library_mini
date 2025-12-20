@@ -8,7 +8,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Thống kê & Báo cáo</title>
-    <link rel="stylesheet" href="css/new_style.css?v=1"/>
+    <link rel="stylesheet" href="css/style.css?v=1"/>
 </head>
 <body>
 <header class="app-header">
@@ -20,9 +20,10 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin_loans.php">Phiếu mượn</a>
         <a href="admin_stats.php" class="active">Thống kê</a>
     </nav>
-    <div>
+    <div class="admin-user-actions">
         <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
-        <a class="logout-link" href="php/logout.php" style="margin-left:12px;">Đăng xuất</a>
+        <a class="greet-link" href="admin_profile.php">Thông tin tài khoản</a>
+        <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
 

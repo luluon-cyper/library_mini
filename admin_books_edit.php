@@ -47,7 +47,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Sửa Sách</title>
-    <link rel="stylesheet" href="css/new_style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 
 <body>
