@@ -73,7 +73,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
     <h3>Xuất báo cáo (CSV)</h3>
     <div class="management-links">
         <a class="btn large-link" href="php/export_report.php?type=loans">Xuất báo cáo mượn trả</a>
-        <a class="btn large-link outline" href="php/export_report.php?type=books">Xuất báo cáo sách</a>
+        <a class="btn large-link" href="php/export_report.php?type=books">Xuất báo cáo sách</a>
     </div>
 </main>
 
