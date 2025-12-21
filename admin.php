@@ -35,7 +35,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 <body>
 
 <header class="app-header">
-    <h1 class="logo">Admin Dashboard</h1>
+    <h1 class="logo" ><a class="logo-link" href="admin.php">Admin Dashboard</a></h1>
     <nav class="admin-menu">
         <a href="admin.php" class="active">Tổng quan</a>
         <a href="admin_books.php">Quản lý sách</a>
@@ -44,8 +44,8 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div class="admin-user-actions">
-        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
-        <a class="greet-link" href="admin_profile.php">Thông tin tài khoản</a>
+        <span class="">Xin chào, <?= $admin_username ?>!</span>
+        <a class="logout-link" href="admin_profile.php">Thông tin tài khoản</a>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>

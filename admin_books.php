@@ -37,7 +37,7 @@ $conn->close();
 <body>
 
 <header class="app-header">
-    <h1 class="logo">Admin Dashboard</h1>
+    <h1 class="logo" ><a class="logo-link" href="admin.php">Admin Dashboard</a></h1>
     <nav class="admin-menu">
         <a href="admin.php">Tổng quan</a>
         <a href="admin_books.php" class="active">Quản lý sách</a>
@@ -46,9 +46,9 @@ $conn->close();
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div class="admin-user-actions">
-        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
-        <a class="greet-link" href="admin_profile.php">Thông tin tài khoản</a>
-        <a class="logout-link" href="php/logout.php">Đăng xuất</a>
+        <span class="">Xin chào, <?= $admin_username ?>!</span>
+        <a class="logout-link" href="admin_profile.php">Thông tin tài khoản</a>
+        <a class="logout-link" href="php/logout.php" style="margin-left:12px;">Đăng xuất</a>
     </div>
 </header>
 
@@ -129,11 +129,11 @@ $conn->close();
                             </span>
                         </td>
                         <td>
-                            <a href="admin_books_edit.php?id=<?= $book['id'] ?>" class="btn outline" style="padding: 5px 10px; font-size: 0.9rem;">Sửa</a>
+                            <a href="admin_books_edit.php?id=<?= $book['id'] ?>" class="btn outline sm">Sửa</a>
                             <form action="php/admin_books_action.php" method="post" style="display:inline-block; margin-left: 5px;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sách này?');">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id" value="<?= $book['id'] ?>">
-                                <button type="submit" class="btn" style="background:#e74c3c; padding: 5px 10px; font-size: 0.9rem;">Xóa</button>
+                                <button type="submit" class="btn danger sm">Xóa</button>
                             </form>
                         </td>
                     </tr>

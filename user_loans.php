@@ -8,15 +8,15 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Phiếu mượn của tôi</title>
-    <link rel="stylesheet" href="css/new_style.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <header class="app-header user-header">
     <h1 class="logo"><a class="logo-link" href="book-list.php">📚 Thư viện Mini</a></h1>
     <div class="user-actions">
-        <a class="logout-link"">Xin chào, <strong><?= $username ?>!</strong></a>
-        <a class="logout-link" href="profile.php">Thông tin tài khoản</strong></a>
-        <a class="logout-link" href="book-list.php">trang chủ</a>
+        <span class="">Xin chào, <?= $username ?>!</span>
+        <a class="logout-link" href="profile.php">Thông tin tài khoản</a>
+        <a class="logout-link" href="book-list.php">Trang chủ</a>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>

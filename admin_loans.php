@@ -12,7 +12,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 </head>
 <body>
 <header class="app-header">
-    <h1 class="logo">Admin Dashboard</h1>
+    <h1 class="logo" ><a class="logo-link" href="admin.php">Admin Dashboard</a></h1>
     <nav class="admin-menu">
         <a href="admin.php">Tổng quan</a>
         <a href="admin_books.php">Quản lý sách</a>
@@ -21,7 +21,7 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div class="admin-user-actions">
-        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
+        <span class="">Xin chào, <?= $admin_username ?>!</span>
         <a class="greet-link" href="admin_profile.php">Thông tin tài khoản</a>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
@@ -86,11 +86,11 @@ async function loadLoans(keyword=''){
         const actions = l.TrangThaiMuonTra === 'dangmuon'
             ? `<form action="php/loans_extend.php" method="post" style="display:inline-block;margin-right:6px;">
                     <input type="hidden" name="loan_id" value="${l.id}">
-                    <button class="btn outline" style="padding:6px 10px;">Gia hạn</button>
+                    <button class="btn outline sm">Gia hạn</button>
                </form>
                <form action="php/loans_return.php" method="post" style="display:inline-block;" onsubmit="return confirm('Xác nhận trả sách?');">
                     <input type="hidden" name="loan_id" value="${l.id}">
-                    <button class="btn" style="padding:6px 10px;background:#22c55e;">Trả</button>
+                    <button class="btn success sm">Trả</button>
                </form>`
             : '';
         const tr = document.createElement('tr');

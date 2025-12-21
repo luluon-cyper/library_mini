@@ -33,7 +33,7 @@ a {
   text-decoration: none;
   font-weight: 600;
 }
-a:hover { text-decoration: underline; }
+a:hover { text-decoration: none; }
 
 h1, h2, h3, h4 {
   margin: 0;
@@ -101,6 +101,10 @@ h1, h2, h3, h4 {
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.15s ease;
 }
+.btn.sm {
+  padding: 8px 12px;
+  font-size: 14px;
+}
 
 .btn.primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -109,6 +113,24 @@ h1, h2, h3, h4 {
 }
 .btn.primary:hover { transform: translateY(-1px); }
 .btn.primary:active { transform: translateY(0); }
+
+.btn.outline {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: #fff;
+}
+
+.btn.success {
+  background: linear-gradient(135deg, var(--success), #15803d);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.22);
+}
+
+.btn.danger {
+  background: linear-gradient(135deg, var(--error), #dc2626);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+}
 
 .btn.ghost {
   background: transparent;
@@ -167,20 +189,20 @@ h1, h2, h3, h4 {
   color: inherit;
   text-decoration: none;
 }
-.logo-link:hover { text-decoration: underline; }
+.logo-link:hover { text-decoration: none; }
 
 .greet-link {
   color: #000;
   font-weight: 700;
   text-decoration: none;
 }
-.greet-link:hover { text-decoration: underline; }
+.greet-link:hover { text-decoration: none; }
 
 .logout-link {
   color: var(--error);
   font-weight: 700;
 }
-.logout-link:hover { text-decoration: underline; }
+.logout-link:hover { text-decoration: none; }
 
 .user-actions {
   display: flex;
@@ -541,6 +563,29 @@ body {
 .greet-link { color: #000; font-weight: 700; }
 .logout-link { color: var(--error); font-weight: 700; }
 
+/* Header links (Xin chào..., Thông tin tài khoản) màu trắng; Đăng xuất đỏ */
+.app-header .greet-link,
+.user-header .greet-link {
+  color: #fff;
+}
+.app-header .logout-link,
+.user-header .logout-link {
+  color: #fff;
+}
+/* chỉ riêng link logout giữ màu đỏ */
+.app-header a[href*="logout.php"],
+.user-header a[href*="logout.php"] {
+  color: var(--error);
+}
+.app-header .greet-link:hover,
+.user-header .greet-link:hover {
+  color: #e2e8f0;
+}
+.app-header a[href*="logout.php"]:hover,
+.user-header a[href*="logout.php"]:hover {
+  color: #fca5a5;
+}
+
 .user-actions,
 .admin-user-actions {
   display: flex;
@@ -597,8 +642,11 @@ body {
   font-weight: 700;
   box-shadow: 0 10px 20px rgba(37,99,235,0.18);
 }
+.btn.sm { padding: 8px 12px; font-size: 14px; }
 .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
-.btn.outline { border: 2px solid var(--primary); color: var(--primary); background: #fff; }
+.btn.outline { border: 2px solid var(--primary); color: var(--primary); background: #fff; box-shadow: none; }
+.btn.success { background: linear-gradient(135deg, var(--success), #15803d); color: #fff; box-shadow: 0 8px 20px rgba(22,163,74,0.22); }
+.btn.danger { background: linear-gradient(135deg, var(--error), #dc2626); color: #fff; box-shadow: 0 8px 20px rgba(239,68,68,0.25); }
 
 .admin-table {
   border-radius: var(--radius);
