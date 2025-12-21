@@ -86,6 +86,31 @@ $conn->close();
                 <input type="number" name="quantity" placeholder="0" min="0" value="1" required>
             </div>
 
+            <div class="form-field" style="grid-column: 1 / -1;">
+                <label>Mô tả</label>
+                <textarea name="description" rows="5" placeholder="Tóm tắt nội dung sách..." style="min-height:120px;"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Năm xuất bản</label>
+                <input type="number" name="year" placeholder="2020" min="0">
+            </div>
+
+            <div class="form-field">
+                <label>Nhà xuất bản</label>
+                <input type="text" name="publisher" placeholder="NXB Trẻ">
+            </div>
+
+            <div class="form-field">
+                <label>Ngôn ngữ</label>
+                <input type="text" name="language" placeholder="Tiếng Việt">
+            </div>
+
+            <div class="form-field">
+                <label>Số trang</label>
+                <input type="number" name="pages" placeholder="300" min="0">
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="btn primary">Thêm Sách</button>
             </div>

@@ -16,8 +16,14 @@ if ($id > 0) {
         s.SoLuong AS quantity,
         tg.TenTacGia AS author, 
         tl.TenTheLoai AS category, 
-        s.TinhTrang AS status 
+        s.TinhTrang AS status,
+        c.MoTa AS description,
+        c.NamXuatBan AS year,
+        c.NhaXuatBan AS publisher,
+        c.NgonNgu AS language,
+        c.SoTrang AS pages
     FROM sach s
+    LEFT JOIN ct_sach c ON c.IDSach = s.IDSach
     LEFT JOIN tacgia tg ON s.IDTacGia = tg.IDTacGia
     LEFT JOIN theloai tl ON s.IDTheLoai = tl.IDTheLoai
     WHERE s.IDSach = ? LIMIT 1");
@@ -91,10 +97,22 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
 
         <label for="quantity">Số lượng</label>
         <input type="number" id="quantity" name="quantity" min="0" value="<?= (int)$book['quantity'] ?>" required>
-        <p style="margin:6px 0 14px; color:#6b7280; font-size:13px;">
-            Nhập 0 sẽ hiển thị trạng thái "Hết sách", lớn hơn 0 sẽ hiển thị "Có sẵn".
-        </p>
-        
+
+        <label for="description">Mô tả</label>
+        <textarea id="description" name="description" rows="5" placeholder="Tóm tắt nội dung sách..." style="min-height:120px;"><?= htmlspecialchars($book['description'] ?? '') ?></textarea>
+
+        <label for="year">Năm xuất bản</label>
+        <input type="number" id="year" name="year" min="0" value="<?= htmlspecialchars($book['year'] ?? '') ?>">
+
+        <label for="publisher">Nhà xuất bản</label>
+        <input type="text" id="publisher" name="publisher" value="<?= htmlspecialchars($book['publisher'] ?? '') ?>" placeholder="NXB Trẻ">
+
+        <label for="language">Ngôn ngữ</label>
+        <input type="text" id="language" name="language" value="<?= htmlspecialchars($book['language'] ?? '') ?>" placeholder="Tiếng Việt">
+
+        <label for="pages">Số trang</label>
+        <input type="number" id="pages" name="pages" min="0" value="<?= htmlspecialchars($book['pages'] ?? '') ?>">
+
         <button type="submit" class="btn">Lưu Thay Đổi</button>
     </form>
 

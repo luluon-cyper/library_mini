@@ -21,19 +21,21 @@ function renderBooks(books) {
 
     // b.title, b.author, b.category nhận từ bí danh AS trong SQL
     return `
-      <div class="book-card">
-        <div class="book-thumb">
-          <img src="${image}" alt="${escapeHtml(b.title)}" loading="lazy">
+      <a class="book-card-link" href="book-detail.php?id=${encodeURIComponent(b.id)}">
+        <div class="book-card">
+          <div class="book-thumb">
+            <img src="${image}" alt="${escapeHtml(b.title)}" loading="lazy">
+          </div>
+          <div class="book-info">
+            <h3>${escapeHtml(b.title)}</h3>
+            <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
+            <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
+            <p>Trạng thái: 
+              <span class="book-status ${statusClass}">${statusText}</span>
+            </p>
+          </div>
         </div>
-        <div class="book-info">
-          <h3>${escapeHtml(b.title)}</h3>
-          <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
-          <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
-          <p>Trạng thái: 
-            <span class="book-status ${statusClass}">${statusText}</span>
-          </p>
-        </div>
-      </div>
+      </a>
     `;
   }).join('');
 }

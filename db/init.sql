@@ -60,6 +60,24 @@ CREATE TABLE sach (
 ) ENGINE=InnoDB;
 
 -- ===============================
+-- TABLE: CT_SACH
+-- ===============================
+CREATE TABLE ct_sach (
+  IDCTSach INT AUTO_INCREMENT PRIMARY KEY,
+  IDSach INT NOT NULL UNIQUE,
+  MoTa TEXT,
+  NamXuatBan INT,
+  NhaXuatBan VARCHAR(150),
+  NgonNgu VARCHAR(50),
+  SoTrang INT,
+
+  CONSTRAINT fk_ctsach_sach
+    FOREIGN KEY (IDSach)
+    REFERENCES sach(IDSach)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ===============================
 -- TABLE: PHIEUMUON
 -- ===============================
 CREATE TABLE phieumuon (
@@ -114,22 +132,6 @@ CREATE TABLE danhgia (
     ON DELETE CASCADE,
 
   CONSTRAINT fk_danhgia_taikhoan
-    FOREIGN KEY (IDTaiKhoan)
-    REFERENCES taikhoan(IDTaiKhoan)
-    ON DELETE CASCADE
-) ENGINE=InnoDB;
-
--- ===============================
--- TABLE: BAOCAO
--- ===============================
-CREATE TABLE baocao (
-  IDBaoCao INT AUTO_INCREMENT PRIMARY KEY,
-  IDTaiKhoan INT NOT NULL,
-  LoaiBaoCao VARCHAR(100),
-  ThoiGianLap DATETIME DEFAULT CURRENT_TIMESTAMP,
-  NoiDungBaoCao TEXT,
-
-  CONSTRAINT fk_baocao_taikhoan
     FOREIGN KEY (IDTaiKhoan)
     REFERENCES taikhoan(IDTaiKhoan)
     ON DELETE CASCADE

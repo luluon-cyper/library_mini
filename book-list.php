@@ -11,7 +11,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Thư viện Sách</title>
-  <link rel="stylesheet" href="css/style.css?v=1"/>
+  <link rel="stylesheet" href="css/style.css?v=2"/>
 </head>
 
 <body>
@@ -38,7 +38,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
   </div>
 </main>
 
-<script src="js/app.js?v=1"></script> 
+<script src="js/app.js?v=2"></script> 
 
 </body>
 </html>
