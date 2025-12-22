@@ -68,7 +68,8 @@ $admin_username = htmlspecialchars($_SESSION['username'] ?? 'Admin');
         <a href="admin_stats.php">Thống kê</a>
     </nav>
     <div class="user-actions">
-        <a class="greet-link" href="admin_profile.php">Xin chào, <?= $admin_username ?>!</a>
+        <span class="">Xin chào, <?= $admin_username ?>!</span>
+        <a class="logout-link" href="admin_profile.php">Thông tin tài khoản</a>
         <a class="logout-link" href="php/logout.php">Đăng xuất</a>
     </div>
 </header>
