@@ -1,20 +1,15 @@
 <?php
-// admin.php
 require 'php/admin_check.php';
 require 'php/config.php';
 $conn = getConn();
 
-// Lấy số liệu thống kê
-// Bản sách đang mượn theo phiếu chưa trả (TrangThaiMuonTra = 'dangmuon')
 $borrowed_books = (int)$conn->query("
     SELECT COALESCE(SUM(ct.SoLuong),0)
     FROM phieumuon pm
     JOIN ct_phieumuon ct ON pm.IDPhieuMuon = ct.IDPhieuMuon
     WHERE pm.TrangThaiMuonTra = 'dangmuon'
 ")->fetch_row()[0];
-// Bản sách còn trong kho (SoLuong hiện tại của bảng sach)
 $available_books = (int)$conn->query("SELECT COALESCE(SUM(SoLuong),0) FROM sach")->fetch_row()[0];
-// Tổng số bản sách = còn kho + đang mượn
 $total_copies = $available_books + $borrowed_books;
 $total_users = $conn->query("SELECT COUNT(IDTaiKhoan) FROM taikhoan WHERE VaiTro='user'")->fetch_row()[0];
 

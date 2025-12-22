@@ -1,11 +1,8 @@
 <?php
-// admin_users.php
 require 'php/admin_check.php';
 require 'php/config.php';
 $conn = getConn();
 
-// Lấy danh sách tài khoản người dùng (VaiTro='user')
-// Dùng AS để đổi tên cột cho dễ đọc
 $query = "SELECT 
     IDTaiKhoan AS id, 
     HoTen AS username, 

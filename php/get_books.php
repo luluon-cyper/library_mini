@@ -5,7 +5,7 @@ $conn = getConn();
 
 $keyword = trim($_GET['keyword'] ?? '');
 
-// SỬA: Base Query với JOIN để lấy tên Tác giả/Thể loại và AS để đổi tên cột
+
 $base_query = "SELECT 
     s.IDSach AS id, 
     s.TenSach AS title, 
@@ -21,7 +21,6 @@ if($keyword === ''){
     $stmt = $conn->prepare($base_query . ' ORDER BY s.IDSach DESC');
 } else {
     $like = '%' . $keyword . '%';
-    // SỬA: Tìm kiếm theo TenSach
     $stmt = $conn->prepare($base_query . ' WHERE s.TenSach LIKE ? ORDER BY s.IDSach DESC');
     $stmt->bind_param('s', $like);
 }

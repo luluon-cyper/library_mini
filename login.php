@@ -13,8 +13,6 @@
         <h2>Đăng nhập Hệ thống</h2>
         
         <?php
-        // Hiển thị thông báo lỗi hoặc thành công từ các trang khác
-        // Cần chạy file này qua PHP Server để code nhúng hoạt động
         if (isset($_GET['error'])) {
             echo '<p class="alert error">' . htmlspecialchars($_GET['error']) . '</p>';
         }

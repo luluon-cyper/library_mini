@@ -22,7 +22,6 @@ if($name === ''){
     redirect_with('error', 'Họ tên không được để trống.');
 }
 
-// Lấy thông tin hiện tại
 $stmt = $conn->prepare("SELECT MatKhau FROM taikhoan WHERE IDTaiKhoan=? LIMIT 1");
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -36,7 +35,6 @@ $stmt->close();
 $update_password = false;
 $hash = null;
 
-// Nếu yêu cầu đổi mật khẩu
 if($new_password !== '' || $confirm_password !== ''){
     if($new_password !== $confirm_password){
         redirect_with('error', 'Mật khẩu mới và xác nhận không khớp.');
@@ -65,7 +63,6 @@ if(!$stmt->execute()){
 }
 $stmt->close();
 
-// Cập nhật session
 $_SESSION['username'] = $name;
 if($email) $_SESSION['email'] = $email;
 

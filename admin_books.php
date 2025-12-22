@@ -1,10 +1,8 @@
 <?php
-// admin_books.php
 require 'php/admin_check.php';
 require 'php/config.php';
 $conn = getConn();
 
-// Lấy danh sách sách với thông tin tác giả và thể loại (SỬ DỤNG AS CHO TÊN BIẾN DỄ DÙNG)
 $query = "SELECT 
     s.IDSach AS id, 
     s.TenSach AS title, 

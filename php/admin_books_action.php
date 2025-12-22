@@ -3,7 +3,6 @@ require 'admin_check.php';
 require 'config.php';
 $conn = getConn();
 
-// Hàm hỗ trợ: Tìm ID hoặc tạo mới Tác giả/Thể loại
 function getOrCreateID($conn, $table, $name_col, $name_value, $id_col) {
     $name_value = trim($name_value);
     if (empty($name_value)) return null;
@@ -55,7 +54,6 @@ if ($action === 'add') {
 
 if ($action === 'delete') {
     $id = intval($_POST['id'] ?? 0); 
-    // SỬA: DELETE FROM sach WHERE IDSach = ?
     $stmt = $conn->prepare('DELETE FROM sach WHERE IDSach = ?');
     $stmt->bind_param('i', $id);
     $stmt->execute();

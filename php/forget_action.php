@@ -22,7 +22,6 @@ if ($email === '') {
 
 $conn = getConn();
 
-// SỬA: SELECT IDTaiKhoan FROM taikhoan
 $stmt = $conn->prepare("SELECT IDTaiKhoan FROM taikhoan WHERE Email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();

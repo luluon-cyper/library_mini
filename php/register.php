@@ -12,7 +12,6 @@ if(!$username || !$email || !$password){
     exit;
 }
 
-// check duplicate. SỬA: SELECT IDTaiKhoan FROM taikhoan
 $stmt = $conn->prepare('SELECT IDTaiKhoan FROM taikhoan WHERE Email = ? LIMIT 1');
 $stmt->bind_param('s', $email);
 $stmt->execute();
@@ -26,7 +25,6 @@ $stmt->close();
 
 $hash = password_hash($password, PASSWORD_DEFAULT);
 $role = 'user';
-// SỬA: INSERT INTO taikhoan (HoTen, Email, MatKhau, VaiTro)
 $stmt = $conn->prepare('INSERT INTO taikhoan (HoTen, Email, MatKhau, VaiTro) VALUES (?, ?, ?, ?)');
 $stmt->bind_param('ssss', $username, $email, $hash, $role);
 if($stmt->execute()){

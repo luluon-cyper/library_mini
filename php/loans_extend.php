@@ -15,7 +15,6 @@ function fail($msg){
 $loan_id = intval($_POST['loan_id'] ?? 0);
 if($loan_id <= 0) fail('Thiếu ID phiếu mượn.');
 
-// Lấy thông tin phiếu
 $stmt = $conn->prepare("SELECT NgayMuon, NgayHenTra, TrangThaiMuonTra FROM phieumuon WHERE IDPhieuMuon=? FOR UPDATE");
 $stmt->bind_param('i', $loan_id);
 $stmt->execute();
@@ -34,11 +33,9 @@ $ngayMuonDt = new DateTime($ngayMuon);
 $ngayHenTraDt = new DateTime($ngayHenTra);
 $newDue = (clone $ngayHenTraDt)->modify('+' . intval($conf['EXTEND_DAYS']) . ' days');
 
-// Giới hạn tối đa
 $maxDue = (clone $ngayMuonDt)->modify('+' . intval($conf['MAX_DAYS']) . ' days');
 if($newDue > $maxDue) $newDue = $maxDue;
 
-// Nếu đã đạt hạn tối đa
 if($newDue <= $ngayHenTraDt){
     fail('Đã đạt hạn tối đa, không thể gia hạn thêm.');
 }

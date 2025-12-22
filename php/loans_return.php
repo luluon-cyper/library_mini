@@ -15,7 +15,6 @@ function fail($msg){
 $loan_id = intval($_POST['loan_id'] ?? 0);
 if($loan_id <= 0) fail('Thiếu ID phiếu mượn.');
 
-// Lấy phiếu
 $stmt = $conn->prepare("SELECT NgayHenTra, TrangThaiMuonTra FROM phieumuon WHERE IDPhieuMuon=? FOR UPDATE");
 $stmt->bind_param('i', $loan_id);
 $stmt->execute();
@@ -35,7 +34,6 @@ $due = new DateTime($ngayHenTra);
 $overDays = max(0, $today->diff($due)->invert ? $today->diff($due)->days : 0);
 $overFee = $overDays * intval($conf['OVERDUE_FEE']);
 
-// Lấy chi tiết để tính tổng phí/ hoàn kho
 $stmt = $conn->prepare("SELECT IDSach, SoLuong FROM ct_phieumuon WHERE IDPhieuMuon=? FOR UPDATE");
 $stmt->bind_param('i', $loan_id);
 $stmt->execute();
@@ -46,16 +44,14 @@ while($r = $res->fetch_assoc()){
 }
 $stmt->close();
 
-// Cập nhật chi tiết: NgayTra, PhiPhat (cho từng dòng)
 foreach($details as $d){
     $stmt = $conn->prepare("UPDATE ct_phieumuon SET NgayTra=?, PhiPhat=? WHERE IDPhieuMuon=? AND IDSach=?");
     $todayStr = $today->format('Y-m-d');
-    $fee = $overFee * $d['SoLuong']; // phí theo số lượng
+    $fee = $overFee * $d['SoLuong'];
     $stmt->bind_param('siii', $todayStr, $fee, $loan_id, $d['IDSach']);
     if(!$stmt->execute()) fail('Lỗi cập nhật chi tiết.');
     $stmt->close();
 
-    // Hoàn kho
     $stmt = $conn->prepare("UPDATE sach SET SoLuong = SoLuong + ? WHERE IDSach=?");
     $stmt->bind_param('ii', $d['SoLuong'], $d['IDSach']);
     if(!$stmt->execute()) fail('Lỗi hoàn số lượng.');

@@ -1,7 +1,5 @@
 <?php
-// book-list.php
 require 'php/auth_check.php';
-// Tên biến 'username' đã được set trong login.php thông qua AS HoTen
 $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng'); 
 ?>
 <!doctype html>

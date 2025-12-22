@@ -1,5 +1,5 @@
 <?php
-require 'admin_check.php'; // Chỉ admin được tạo phiếu
+require 'admin_check.php';
 require 'config.php';
 $conf = require __DIR__ . '/loan_config.php';
 
@@ -19,7 +19,6 @@ if($user_id <= 0 || $items_raw === '') {
     fail('Thiếu thông tin người mượn hoặc sách.');
 }
 
-// Parse danh sách sách: mỗi dòng bookId,qty
 $lines = array_filter(array_map('trim', explode("\n", $items_raw)));
 $items = [];
 foreach($lines as $line){

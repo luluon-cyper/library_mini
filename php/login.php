@@ -15,22 +15,18 @@ if(empty($email) || empty($password)){
 } 
 
 if(!$redirect_to_error) {
-    // SỬA: Thay thế tên bảng và cột theo init.sql, dùng AS cho session
     $stmt = $conn->prepare('SELECT IDTaiKhoan AS user_id, HoTen AS username, MatKhau, VaiTro AS role FROM taikhoan WHERE Email = ? LIMIT 1');
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $res = $stmt->get_result();
 
     if($row = $res->fetch_assoc()){
-        // SỬA: Dùng cột MatKhau để xác thực
         if(password_verify($password, $row['MatKhau'])){ 
             
-            // Gán Session theo tên biến đã định danh bằng AS
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['username'] = $row['username']; 
             $_SESSION['role'] = $row['role'];        
             
-            // Chuyển hướng theo vai trò (role)
             if($row['role'] === 'admin'){
                 header('Location: ../admin.php');
                 exit;

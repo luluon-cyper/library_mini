@@ -1,9 +1,9 @@
 <?php
 // THÔNG TIN CẦN THAY ĐỔI
 define('DB_HOST','localhost');
-define('DB_USER','root');    // << THAY ĐỔI USERNAME DATABASE
-define('DB_PASS','');        // << THAY ĐỔI PASSWORD DATABASE
-define('DB_NAME','library_db'); // << PHẢI KHỚP VỚI init.sql
+define('DB_USER','root');
+define('DB_PASS','');
+define('DB_NAME','library_db');
 define('DB_PORT',3306);
 
 function getConn(){

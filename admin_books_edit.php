@@ -1,5 +1,4 @@
 <?php
-// admin_books_edit.php
 require 'php/admin_check.php';
 require 'php/config.php';
 $conn = getConn();
@@ -8,7 +7,6 @@ $id = intval($_GET['id'] ?? 0);
 $book = null;
 
 if ($id > 0) {
-    // Lấy thông tin sách bằng ID (SỬ DỤNG AS)
     $stmt = $conn->prepare("SELECT 
         s.IDSach AS id, 
         s.TenSach AS title, 

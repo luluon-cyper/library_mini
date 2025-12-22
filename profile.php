@@ -1,5 +1,5 @@
 <?php
-require 'php/auth_check.php'; // user session
+require 'php/auth_check.php';
 require 'php/config.php';
 $conn = getConn();
 $user_id = $_SESSION['user_id'];

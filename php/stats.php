@@ -3,26 +3,20 @@ require 'admin_check.php';
 require 'config.php';
 $conn = getConn();
 
-// Thống kê sách
-// Bản sách đang mượn dựa trên phiếu chưa trả (dangmuon)
 $borrowed_books  = (int)$conn->query("
     SELECT COALESCE(SUM(ct.SoLuong),0)
     FROM phieumuon pm
     JOIN ct_phieumuon ct ON pm.IDPhieuMuon = ct.IDPhieuMuon
     WHERE pm.TrangThaiMuonTra = 'dangmuon'
 ")->fetch_row()[0];
-// Bản sách còn trong kho
 $available_books = (int)$conn->query("SELECT COALESCE(SUM(SoLuong),0) FROM sach")->fetch_row()[0];
-// Tổng bản sách = còn kho + đang mượn
 $total_copies = $available_books + $borrowed_books;
 
-// Thống kê mượn trả
 $loan_total   = (int)$conn->query("SELECT COUNT(*) FROM phieumuon")->fetch_row()[0];
 $loan_open    = (int)$conn->query("SELECT COUNT(*) FROM phieumuon WHERE TrangThaiMuonTra='dangmuon'")->fetch_row()[0];
 $loan_closed  = (int)$conn->query("SELECT COUNT(*) FROM phieumuon WHERE TrangThaiMuonTra='datra'")->fetch_row()[0];
 $loan_overdue = (int)$conn->query("SELECT COUNT(*) FROM phieumuon WHERE TrangThaiMuonTra='quahan'")->fetch_row()[0];
 
-// Sách mượn theo thể loại (top 5)
 $genre_sql = "
     SELECT tl.TenTheLoai AS category, COUNT(*) AS total
     FROM phieumuon pm
@@ -37,7 +31,6 @@ $genre_res = $conn->query($genre_sql);
 $top_genres = [];
 while($r = $genre_res->fetch_assoc()) $top_genres[] = $r;
 
-// Doanh thu/phí phạt (tổng PhiPhat đã phát sinh)
 $fee_sql = "SELECT SUM(PhiPhat) FROM ct_phieumuon";
 $fee_total = (int)($conn->query($fee_sql)->fetch_row()[0] ?? 0);
 

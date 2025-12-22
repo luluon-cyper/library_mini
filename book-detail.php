@@ -1,5 +1,4 @@
 <?php
-// book-detail.php
 require 'php/auth_check.php';
 require 'php/config.php';
 $conn = getConn();
@@ -41,8 +40,6 @@ if (!$book) {
     header('Location: book-list.php?error=' . urlencode('Không tìm thấy sách.'));
     exit;
 }
-
-// Lấy đánh giá
 $reviews = [];
 $stmtRv = $conn->prepare("
     SELECT 
