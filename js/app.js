@@ -1,7 +1,13 @@
 // js/app.js
-async function fetchBooks(keyword='') {
-  // Gọi API get_books.php trong thư mục php/
-  const res = await fetch('php/get_books.php?keyword=' + encodeURIComponent(keyword));
+async function fetchBooks({ title = '', author = '', category = '' } = {}) {
+  const params = new URLSearchParams();
+  if (title) params.append('title', title);
+  if (author) params.append('author', author);
+  if (category) params.append('category', category);
+  const qs = params.toString();
+  const url = qs ? ('php/get_books.php?' + qs) : 'php/get_books.php';
+  // Gọi API get_books.php trong thư mục php/ với builder filters
+  const res = await fetch(url);
   return await res.json();
 }
 
@@ -47,19 +53,49 @@ function escapeHtml(str){
 
 document.addEventListener('DOMContentLoaded', async () => {
   const btn = document.getElementById('searchBtn');
+  const searchInput = document.getElementById('searchInput');
+  const searchTypeBtn = document.getElementById('searchTypeBtn');
+  const searchTypeMenu = document.getElementById('searchTypeMenu');
+  const searchTypeLabel = document.getElementById('searchTypeLabel');
+  let currentType = 'title';
+
   if(btn){
     btn.addEventListener('click', async () => {
-      const kw = document.getElementById('searchInput').value.trim();
-      const books = await fetchBooks(kw);
+      const kw = searchInput ? searchInput.value.trim() : '';
+      const payload = { title: '', author: '', category: '' };
+      if (currentType === 'title') payload.title = kw;
+      if (currentType === 'author') payload.author = kw;
+      if (currentType === 'category') payload.category = kw;
+      const books = await fetchBooks(payload);
       renderBooks(books);
     });
   }
-  // Thêm sự kiện Enter cho ô tìm kiếm
-  const searchInput = document.getElementById('searchInput');
+  
   if(searchInput){
     searchInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         document.getElementById('searchBtn').click();
+      }
+    });
+  }
+  if(searchTypeBtn && searchTypeMenu){
+    searchTypeBtn.addEventListener('click', () => {
+      const isHidden = searchTypeMenu.style.display === 'none' || searchTypeMenu.style.display === '';
+      searchTypeMenu.style.display = isHidden ? 'block' : 'none';
+    });
+    searchTypeMenu.querySelectorAll('li').forEach(li => {
+      li.addEventListener('click', () => {
+        currentType = li.dataset.type || 'title';
+        const ph = li.dataset.placeholder || 'Nhập từ khóa...';
+        if (searchTypeLabel) searchTypeLabel.textContent = li.textContent.trim();
+        if (searchInput) searchInput.placeholder = ph;
+        searchTypeMenu.style.display = 'none';
+        searchInput && searchInput.focus();
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!searchTypeBtn.contains(e.target) && !searchTypeMenu.contains(e.target)) {
+        searchTypeMenu.style.display = 'none';
       }
     });
   }
