@@ -11,7 +11,6 @@
 <body class="auth-page">
     <div class="auth-container">
         <h2>Đăng ký Tài khoản</h2>
-        <p style="margin:6px 0 18px; color:#6b7280;">Tạo tài khoản để bắt đầu mượn sách.</p>
 
         <?php
         if (isset($_GET['error'])) {

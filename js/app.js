@@ -1,4 +1,4 @@
-
+// js/app.js
 async function fetchBooks({ title = '', author = '', category = '' } = {}) {
   const params = new URLSearchParams();
   if (title) params.append('title', title);
@@ -6,7 +6,7 @@ async function fetchBooks({ title = '', author = '', category = '' } = {}) {
   if (category) params.append('category', category);
   const qs = params.toString();
   const url = qs ? ('php/get_books.php?' + qs) : 'php/get_books.php';
-
+  // Gọi API get_books.php trong thư mục php/ với builder filters
   const res = await fetch(url);
   return await res.json();
 }
@@ -20,10 +20,12 @@ function renderBooks(books) {
   }
   
   c.innerHTML = books.map(b => {
+    // b.status nhận giá trị 'available' hoặc 'borrowed' từ PHP/SQL (cột TinhTrang)
     const statusClass = b.status === 'available' ? 'available' : 'borrowed';
     const statusText = b.status === 'available' ? 'Có sẵn' : 'Đã mượn';
     const image = b.image || 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
 
+    // b.title, b.author, b.category nhận từ bí danh AS trong SQL
     return `
       <a class="book-card-link" href="book-detail.php?id=${encodeURIComponent(b.id)}">
         <div class="book-card">
@@ -52,19 +54,15 @@ function escapeHtml(str){
 document.addEventListener('DOMContentLoaded', async () => {
   const btn = document.getElementById('searchBtn');
   const searchInput = document.getElementById('searchInput');
-  const searchTypeBtn = document.getElementById('searchTypeBtn');
-  const searchTypeMenu = document.getElementById('searchTypeMenu');
-  const searchTypeLabel = document.getElementById('searchTypeLabel');
-  let currentType = 'title';
+  const authorInput = document.getElementById('searchAuthor');
+  const categoryInput = document.getElementById('searchCategory');
 
   if(btn){
     btn.addEventListener('click', async () => {
       const kw = searchInput ? searchInput.value.trim() : '';
-      const payload = { title: '', author: '', category: '' };
-      if (currentType === 'title') payload.title = kw;
-      if (currentType === 'author') payload.author = kw;
-      if (currentType === 'category') payload.category = kw;
-      const books = await fetchBooks(payload);
+      const au = authorInput ? authorInput.value.trim() : '';
+      const cat = categoryInput ? categoryInput.value.trim() : '';
+      const books = await fetchBooks({ title: kw, author: au, category: cat });
       renderBooks(books);
     });
   }
@@ -76,28 +74,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   }
-  if(searchTypeBtn && searchTypeMenu){
-    searchTypeBtn.addEventListener('click', () => {
-      const isHidden = searchTypeMenu.style.display === 'none' || searchTypeMenu.style.display === '';
-      searchTypeMenu.style.display = isHidden ? 'block' : 'none';
+  if(authorInput){
+    authorInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('searchBtn').click();
+      }
     });
-    searchTypeMenu.querySelectorAll('li').forEach(li => {
-      li.addEventListener('click', () => {
-        currentType = li.dataset.type || 'title';
-        const ph = li.dataset.placeholder || 'Nhập từ khóa...';
-        if (searchTypeLabel) searchTypeLabel.textContent = li.textContent.trim();
-        if (searchInput) searchInput.placeholder = ph;
-        searchTypeMenu.style.display = 'none';
-        searchInput && searchInput.focus();
-      });
-    });
-    document.addEventListener('click', (e) => {
-      if (!searchTypeBtn.contains(e.target) && !searchTypeMenu.contains(e.target)) {
-        searchTypeMenu.style.display = 'none';
+  }
+  if(categoryInput){
+    categoryInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('searchBtn').click();
       }
     });
   }
 
+  // initial load
   const books = await fetchBooks();
   renderBooks(books);
 });
