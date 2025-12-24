@@ -7,7 +7,7 @@ function getOrCreateID($conn, $table, $name_col, $name_value, $id_col) {
     $name_value = trim($name_value);
     if (empty($name_value)) return null;
 
-    // 1. Tìm kiếm
+
     $stmt = $conn->prepare("SELECT {$id_col} FROM {$table} WHERE {$name_col} = ? LIMIT 1");
     $stmt->bind_param('s', $name_value);
     $stmt->execute();
@@ -18,7 +18,7 @@ function getOrCreateID($conn, $table, $name_col, $name_value, $id_col) {
     }
     $stmt->close();
 
-    // 2. Tạo mới nếu không tìm thấy
+
     $stmt = $conn->prepare("INSERT INTO {$table} ({$name_col}) VALUES (?)");
     $stmt->bind_param('s', $name_value);
     if (!$stmt->execute()) {
@@ -40,11 +40,11 @@ if ($action === 'add') {
     $quantity = max(0, intval($_POST['quantity'] ?? 0));
     $status = $quantity > 0 ? 'available' : 'borrowed'; 
     
-    // Xử lý Tác giả và Thể loại để lấy ID
+
     $id_tacgia = getOrCreateID($conn, 'tacgia', 'TenTacGia', $author_name, 'IDTacGia');
     $id_theloai = getOrCreateID($conn, 'theloai', 'TenTheLoai', $category_name, 'IDTheLoai');
     
-    // INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, Anh, SoLuong, TinhTrang)
+
     $stmt = $conn->prepare('INSERT INTO sach (TenSach, IDTacGia, IDTheLoai, Anh, SoLuong, TinhTrang) VALUES (?, ?, ?, ?, ?, ?)'); 
     $stmt->bind_param('siisis', $title, $id_tacgia, $id_theloai, $image, $quantity, $status); 
     $stmt->execute();
@@ -70,11 +70,11 @@ if ($action === 'edit') {
     $quantity = max(0, intval($_POST['quantity'] ?? 0));
     $status = $quantity > 0 ? 'available' : 'borrowed'; 
 
-    // Xử lý Tác giả và Thể loại để lấy ID
+
     $id_tacgia = getOrCreateID($conn, 'tacgia', 'TenTacGia', $author_name, 'IDTacGia');
     $id_theloai = getOrCreateID($conn, 'theloai', 'TenTheLoai', $category_name, 'IDTheLoai');
 
-    // UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, Anh=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?
+
     $stmt = $conn->prepare('UPDATE sach SET TenSach=?, IDTacGia=?, IDTheLoai=?, Anh=?, SoLuong=?, TinhTrang=? WHERE IDSach = ?');
     $stmt->bind_param('siisisi', $title, $id_tacgia, $id_theloai, $image, $quantity, $status, $id); 
     $stmt->execute();

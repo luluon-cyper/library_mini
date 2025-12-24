@@ -1,4 +1,4 @@
-/* --- New UI theme --- */
+
 :root {
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
@@ -40,7 +40,6 @@ h1, h2, h3, h4 {
   color: var(--text);
 }
 
-/* --- Auth pages (login/register/forget) --- */
 .auth-page {
   min-height: 100vh;
   display: grid;
@@ -167,7 +166,7 @@ h1, h2, h3, h4 {
   color: var(--success);
 }
 
-/* --- Shared header --- */
+
 .app-header {
   background: var(--card);
   border-bottom: 1px solid var(--border);
@@ -216,7 +215,7 @@ h1, h2, h3, h4 {
   gap: 12px;
 }
 
-/* --- User Book List --- */
+
 .user-header {
   background: linear-gradient(90deg, var(--primary), var(--primary-dark));
   color: #fff;
@@ -270,6 +269,7 @@ h1, h2, h3, h4 {
   font-size: 13px;
   color: #111827;
 }
+
 .search-type-btn .caret { color: var(--muted); }
 .grid-icon {
   display: inline-flex;
@@ -292,6 +292,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
   z-index: 20;
 }
+
 .search-type-menu li {
   padding: 10px 12px;
   border-radius: 10px;
@@ -303,6 +304,7 @@ h1, h2, h3, h4 {
 .search-type-menu li:hover {
   background: #f8fafc;
 }
+
 .search-pill input {
   width: 100%;
   padding: 8px 10px;
@@ -438,10 +440,12 @@ h1, h2, h3, h4 {
   border: 1px solid #fecdd3;
 }
 
-/* --- Admin --- */
+
 .admin-menu {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  flex: 1;
 }
 .admin-menu a {
   padding: 10px 14px;
@@ -508,7 +512,7 @@ h1, h2, h3, h4 {
   border-radius: 10px;
 }
 
-/* Tables (admin) */
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -535,7 +539,7 @@ h1, h2, h3, h4 {
 }
 .admin-table tbody tr:last-child td { border-bottom: none; }
 
-/* Forms (admin) */
+
 .add-form {
   background: var(--card);
   padding: 18px;
@@ -650,14 +654,11 @@ h1, h2, h3, h4 {
   font-weight: 700;
   cursor: pointer;
 }
-
-/* Responsive tweaks */
 @media (max-width: 768px) {
   .app-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .search-bar-header { width: 100%; }
 }
 
-/* --- Modern theme overrides (layout refresh) --- */
 :root {
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
@@ -708,7 +709,6 @@ body {
 .greet-link { color: #000; font-weight: 700; }
 .logout-link { color: var(--error); font-weight: 700; }
 
-/* Header links (Xin chào..., Thông tin tài khoản) màu trắng; Đăng xuất đỏ */
 .app-header .greet-link,
 .user-header .greet-link {
   color: #fff;
@@ -717,7 +717,7 @@ body {
 .user-header .logout-link {
   color: #fff;
 }
-/* chỉ riêng link logout giữ màu đỏ */
+
 .app-header a[href*="logout.php"],
 .user-header a[href*="logout.php"] {
   color: var(--error);
@@ -736,6 +736,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
+  margin-left: auto;
 }
 
 .book-container { padding: 24px; display: flex; justify-content: center; }
@@ -815,7 +816,6 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* --- Book detail page --- */
 .book-detail-page {
   padding: 28px 18px 48px;
   background: var(--bg);
