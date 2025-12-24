@@ -1,4 +1,3 @@
-// js/app.js
 async function fetchBooks({ title = '', author = '', category = '' } = {}) {
   const params = new URLSearchParams();
   if (title) params.append('title', title);
@@ -6,7 +5,7 @@ async function fetchBooks({ title = '', author = '', category = '' } = {}) {
   if (category) params.append('category', category);
   const qs = params.toString();
   const url = qs ? ('php/get_books.php?' + qs) : 'php/get_books.php';
-  // Gọi API get_books.php trong thư mục php/ với builder filters
+
   const res = await fetch(url);
   return await res.json();
 }
@@ -20,12 +19,11 @@ function renderBooks(books) {
   }
   
   c.innerHTML = books.map(b => {
-    // b.status nhận giá trị 'available' hoặc 'borrowed' từ PHP/SQL (cột TinhTrang)
+
     const statusClass = b.status === 'available' ? 'available' : 'borrowed';
-    const statusText = b.status === 'available' ? 'Có sẵn' : 'Đã mượn';
+    const statusText = b.status === 'available' ? 'Có sẵn' : 'Hết sách';
     const image = b.image || 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
 
-    // b.title, b.author, b.category nhận từ bí danh AS trong SQL
     return `
       <a class="book-card-link" href="book-detail.php?id=${encodeURIComponent(b.id)}">
         <div class="book-card">
@@ -89,7 +87,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // initial load
   const books = await fetchBooks();
   renderBooks(books);
 });
