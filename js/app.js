@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Dropdown loại tìm kiếm
   if (searchTypeBtn && searchTypeMenu && searchTypeWrap) {
     searchTypeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -104,7 +103,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Form quên mật khẩu (nếu có)
   if (forgetForm && forgetMsg) {
     forgetForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -127,7 +125,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // initial load
   const books = await fetchBooks();
   renderBooks(books);
 });

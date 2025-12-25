@@ -12,21 +12,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Cơ sở dữ liệu: `library_db`
---
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `ct_phieumuon`
---
-
 CREATE TABLE `ct_phieumuon` (
   `IDCTPhieuMuon` int(11) NOT NULL,
   `IDPhieuMuon` int(11) NOT NULL,
