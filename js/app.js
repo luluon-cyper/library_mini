@@ -52,41 +52,60 @@ function escapeHtml(str){
 document.addEventListener('DOMContentLoaded', async () => {
   const btn = document.getElementById('searchBtn');
   const searchInput = document.getElementById('searchInput');
-  const authorInput = document.getElementById('searchAuthor');
-  const categoryInput = document.getElementById('searchCategory');
+  const searchTypeBtn = document.getElementById('searchTypeBtn');
+  const searchTypeMenu = document.getElementById('searchTypeMenu');
+  const searchTypeLabel = document.getElementById('searchTypeLabel');
+  const searchTypeWrap = document.querySelector('.search-type-wrap');
+  let currentType = 'title';
 
-  if(btn){
-    btn.addEventListener('click', async () => {
-      const kw = searchInput ? searchInput.value.trim() : '';
-      const au = authorInput ? authorInput.value.trim() : '';
-      const cat = categoryInput ? categoryInput.value.trim() : '';
-      const books = await fetchBooks({ title: kw, author: au, category: cat });
-      renderBooks(books);
-    });
+  const triggerSearch = async () => {
+    const kw = searchInput ? searchInput.value.trim() : '';
+    const payload = { title: '', author: '', category: '' };
+    if (currentType === 'title') payload.title = kw;
+    if (currentType === 'author') payload.author = kw;
+    if (currentType === 'category') payload.category = kw;
+    const books = await fetchBooks(payload);
+    renderBooks(books);
+  };
+
+  if (btn) {
+    btn.addEventListener('click', triggerSearch);
   }
-  
-  if(searchInput){
-    searchInput.addEventListener('keypress', function(e) {
+
+  if (searchInput) {
+    searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        document.getElementById('searchBtn').click();
-      }
-    });
-  }
-  if(authorInput){
-    authorInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        document.getElementById('searchBtn').click();
-      }
-    });
-  }
-  if(categoryInput){
-    categoryInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        document.getElementById('searchBtn').click();
+        triggerSearch();
       }
     });
   }
 
+  if (searchTypeBtn && searchTypeMenu && searchTypeWrap) {
+    searchTypeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      searchTypeWrap.classList.toggle('open');
+    });
+    searchTypeMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    searchTypeMenu.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => {
+        currentType = li.dataset.type || 'title';
+        const ph = li.dataset.placeholder || 'Nhập từ khóa...';
+        if (searchTypeLabel) searchTypeLabel.textContent = li.textContent.trim();
+        if (searchInput) searchInput.placeholder = ph;
+        searchTypeWrap.classList.remove('open');
+        searchInput && searchInput.focus();
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!searchTypeWrap.contains(e.target)) {
+        searchTypeWrap.classList.remove('open');
+      }
+    });
+  }
+
+  // initial load
   const books = await fetchBooks();
   renderBooks(books);
 });

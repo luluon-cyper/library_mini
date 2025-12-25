@@ -25,7 +25,7 @@ $username = htmlspecialchars($_SESSION['username'] ?? 'Người dùng');
           <span id="searchTypeLabel">Nhan đề</span>
           <span class="caret">▼</span>
         </button>
-        <ul class="search-type-menu" id="searchTypeMenu" style="display:none;">
+        <ul class="search-type-menu" id="searchTypeMenu">
           <li data-type="title" data-placeholder="Nhập nhan đề...">Nhan đề</li>
           <li data-type="author" data-placeholder="Nhập tên tác giả...">Tác giả</li>
           <li data-type="category" data-placeholder="Nhập thể loại...">Thể loại</li>
