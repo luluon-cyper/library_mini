@@ -4,49 +4,52 @@ async function fetchBooks({ title = '', author = '', category = '' } = {}) {
   if (author) params.append('author', author);
   if (category) params.append('category', category);
   const qs = params.toString();
-  const url = qs ? ('php/get_books.php?' + qs) : 'php/get_books.php';
-
+  const url = qs ? 'php/get_books.php?' + qs : 'php/get_books.php';
   const res = await fetch(url);
   return await res.json();
 }
 
 function renderBooks(books) {
   const c = document.getElementById('booksContainer');
-  if(!c) return;
-  if(!books.length) {
+  if (!c) return;
+  if (!books.length) {
     c.innerHTML = '<p>Không có sách phù hợp.</p>';
     return;
   }
-  
-  c.innerHTML = books.map(b => {
-
-    const statusClass = b.status === 'available' ? 'available' : 'borrowed';
-    const statusText = b.status === 'available' ? 'Có sẵn' : 'Hết sách';
-    const image = b.image || 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
-
-    return `
-      <a class="book-card-link" href="book-detail.php?id=${encodeURIComponent(b.id)}">
-        <div class="book-card">
-          <div class="book-thumb">
-            <img src="${image}" alt="${escapeHtml(b.title)}" loading="lazy">
+  c.innerHTML = books
+    .map((b) => {
+      const statusClass = b.status === 'available' ? 'available' : 'borrowed';
+      const statusText = b.status === 'available' ? 'Có sẵn' : 'Hết sách';
+      const image = b.image || 'https://dayve.vn/wp-content/uploads/2022/11/Ve-quyen-sach-Buoc-16.jpg';
+      return `
+        <a class="book-card-link" href="book-detail.php?id=${encodeURIComponent(b.id)}">
+          <div class="book-card">
+            <div class="book-thumb">
+              <img src="${image}" alt="${escapeHtml(b.title)}" loading="lazy">
+            </div>
+            <div class="book-info">
+              <h3>${escapeHtml(b.title)}</h3>
+              <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
+              <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
+              <p>Trạng thái:
+                <span class="book-status ${statusClass}">${statusText}</span>
+              </p>
+            </div>
           </div>
-          <div class="book-info">
-            <h3>${escapeHtml(b.title)}</h3>
-            <p>Tác giả: ${escapeHtml(b.author || 'Chưa rõ')}</p>
-            <p>Thể loại: ${escapeHtml(b.category || 'Chưa rõ')}</p>
-            <p>Trạng thái: 
-              <span class="book-status ${statusClass}">${statusText}</span>
-            </p>
-          </div>
-        </div>
-      </a>
-    `;
-  }).join('');
+        </a>
+      `;
+    })
+    .join('');
 }
 
-function escapeHtml(str){
-  if(!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -56,6 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchTypeMenu = document.getElementById('searchTypeMenu');
   const searchTypeLabel = document.getElementById('searchTypeLabel');
   const searchTypeWrap = document.querySelector('.search-type-wrap');
+  const forgetForm = document.getElementById('forgetForm');
+  const forgetMsg = document.getElementById('errorMessage');
   let currentType = 'title';
 
   const triggerSearch = async () => {
@@ -68,26 +73,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderBooks(books);
   };
 
-  if (btn) {
-    btn.addEventListener('click', triggerSearch);
-  }
-
+  if (btn) btn.addEventListener('click', triggerSearch);
   if (searchInput) {
     searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        triggerSearch();
-      }
+      if (e.key === 'Enter') triggerSearch();
     });
   }
 
+  // Dropdown loại tìm kiếm
   if (searchTypeBtn && searchTypeMenu && searchTypeWrap) {
     searchTypeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       searchTypeWrap.classList.toggle('open');
     });
-    searchTypeMenu.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
+    searchTypeMenu.addEventListener('click', (e) => e.stopPropagation());
     searchTypeMenu.querySelectorAll('li').forEach((li) => {
       li.addEventListener('click', () => {
         currentType = li.dataset.type || 'title';
@@ -105,7 +104,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  // Form quên mật khẩu (nếu có)
+  if (forgetForm && forgetMsg) {
+    forgetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      forgetMsg.style.display = 'none';
+      forgetMsg.textContent = '';
+      forgetMsg.classList.remove('error', 'success');
+      const formData = new FormData(forgetForm);
+      try {
+        const res = await fetch(forgetForm.action, { method: 'POST', body: formData });
+        const result = await res.json();
+        const isSuccess = result.status === 'success';
+        forgetMsg.classList.add(isSuccess ? 'success' : 'error');
+        forgetMsg.textContent = result.message;
+        forgetMsg.style.display = 'block';
+      } catch (err) {
+        forgetMsg.classList.add('error');
+        forgetMsg.textContent = 'Lỗi kết nối máy chủ.';
+        forgetMsg.style.display = 'block';
+      }
+    });
+  }
+
   // initial load
   const books = await fetchBooks();
   renderBooks(books);
 });
+

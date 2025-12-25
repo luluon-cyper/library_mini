@@ -33,7 +33,6 @@ if(empty($items)) {
     fail('Không có sách hợp lệ.');
 }
 
-// Kiểm tra tồn kho
 foreach($items as $it){
     $stmt = $conn->prepare("SELECT SoLuong FROM sach WHERE IDSach=? FOR UPDATE");
     $stmt->bind_param('i', $it['id']);
@@ -49,20 +48,17 @@ foreach($items as $it){
     }
 }
 
-// Tính hạn trả
 $today = new DateTime('today');
 $due = (clone $today)->modify('+' . intval($conf['DEFAULT_DAYS']) . ' days');
 $todayStr = $today->format('Y-m-d');
 $dueStr = $due->format('Y-m-d');
 
-// Tạo phiếu mượn
 $stmt = $conn->prepare("INSERT INTO phieumuon (IDTaiKhoan, NgayMuon, NgayHenTra, TrangThaiMuonTra) VALUES (?, ?, ?, 'dangmuon')");
 $stmt->bind_param('iss', $user_id, $todayStr, $dueStr);
 if(!$stmt->execute()) fail('Lỗi tạo phiếu mượn.');
 $loan_id = $conn->insert_id;
 $stmt->close();
 
-// Thêm chi tiết + trừ kho
 foreach($items as $it){
     $stmt = $conn->prepare("INSERT INTO ct_phieumuon (IDPhieuMuon, IDSach, SoLuong, PhiPhat) VALUES (?, ?, ?, 0)");
     $stmt->bind_param('iii', $loan_id, $it['id'], $it['qty']);

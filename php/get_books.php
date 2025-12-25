@@ -34,7 +34,7 @@ class BookQueryBuilder {
         }
         return $this;
     }
-
+    
     public function byAuthor(string $author): self {
         if ($author !== '') {
             $this->conditions[] = 'tg.TenTacGia LIKE ?';
@@ -43,7 +43,6 @@ class BookQueryBuilder {
         }
         return $this;
     }
-
     public function byCategory(string $category): self {
         if ($category !== '') {
             $this->conditions[] = 'tl.TenTheLoai LIKE ?';
@@ -52,14 +51,12 @@ class BookQueryBuilder {
         }
         return $this;
     }
-
     public function build(mysqli $conn): mysqli_stmt {
         $sql = $this->base;
         if (!empty($this->conditions)) {
             $sql .= ' WHERE ' . implode(' AND ', $this->conditions);
         }
         $sql .= ' ORDER BY s.IDSach DESC';
-
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
             throw new RuntimeException('Cannot prepare statement');
